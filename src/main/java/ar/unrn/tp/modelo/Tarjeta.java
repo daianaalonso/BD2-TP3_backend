@@ -4,11 +4,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Tarjeta {
 
     @Id
@@ -26,29 +28,7 @@ public class Tarjeta {
         this.nombre = nombre;
     }
 
-    protected Tarjeta() {
-
+    public boolean esTarjeta(String tarjeta) {
+        return this.nombre.equals(tarjeta);
     }
-
-    public boolean esTarjeta(Tarjeta tarjeta) {
-        return this.nombre.equals(tarjeta.nombre());
-    }
-
-    public String nombre() {
-        return this.nombre;
-    }
-
-    public int numero() {
-        return this.numero;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-
 }

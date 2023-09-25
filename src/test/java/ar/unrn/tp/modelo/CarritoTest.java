@@ -25,10 +25,10 @@ public class CarritoTest {
         carrito.agregarProductoAlCarrito(producto1);
         carrito.agregarProductoAlCarrito(producto2);
 
-        MarcaPromocion descuentoMarcaFinalizado = new MarcaPromocion(LocalDate.now().minusDays(20), LocalDate.now().minusDays(10), 0.05, comarca);
+        MarcaPromocion descuentoMarcaFinalizado = new MarcaPromocion(LocalDate.now().minusDays(20), LocalDate.now().minusDays(10), 0.05, "Comarca");
         List<MarcaPromocion> marcaPromociones = new ArrayList<>();
         marcaPromociones.add(descuentoMarcaFinalizado);
-        PagoPromocion descuentoPagoFinalizado = new PagoPromocion(LocalDate.now().minusDays(10), LocalDate.now().minusDays(5), 0.08, memeCard);
+        PagoPromocion descuentoPagoFinalizado = new PagoPromocion(LocalDate.now().minusDays(10), LocalDate.now().minusDays(5), 0.08, "MemeCard");
 
         assertEquals(34000, carrito.calcularMontoCarrito(marcaPromociones, descuentoPagoFinalizado, memeCard));
     }
@@ -48,10 +48,10 @@ public class CarritoTest {
         carrito.agregarProductoAlCarrito(producto1);
         carrito.agregarProductoAlCarrito(producto2);
 
-        MarcaPromocion descuentoMarcaFinalizado = new MarcaPromocion(LocalDate.now().minusDays(2), LocalDate.now().plusDays(5), 0.05, acme);
+        MarcaPromocion descuentoMarcaFinalizado = new MarcaPromocion(LocalDate.now().minusDays(2), LocalDate.now().plusDays(5), 0.05, "Acme");
         List<MarcaPromocion> marcaPromociones = new ArrayList<>();
         marcaPromociones.add(descuentoMarcaFinalizado);
-        PagoPromocion descuentoPagoFinalizado = new PagoPromocion(LocalDate.now().minusDays(10), LocalDate.now().minusDays(5), 0.08, memeCard);
+        PagoPromocion descuentoPagoFinalizado = new PagoPromocion(LocalDate.now().minusDays(10), LocalDate.now().minusDays(5), 0.08, "MemeCard");
 
         assertEquals(32500, carrito.calcularMontoCarrito(marcaPromociones, descuentoPagoFinalizado, memeCard));
     }
@@ -71,10 +71,10 @@ public class CarritoTest {
         carrito.agregarProductoAlCarrito(producto1);
         carrito.agregarProductoAlCarrito(producto2);
 
-        MarcaPromocion descuentoMarcaFinalizado = new MarcaPromocion(LocalDate.now().minusDays(10), LocalDate.now().minusDays(5), 0.05, acme);
+        MarcaPromocion descuentoMarcaFinalizado = new MarcaPromocion(LocalDate.now().minusDays(10), LocalDate.now().minusDays(5), 0.05, "Acme");
         List<MarcaPromocion> marcaPromociones = new ArrayList<>();
         marcaPromociones.add(descuentoMarcaFinalizado);
-        PagoPromocion descuentoPagoFinalizado = new PagoPromocion(LocalDate.now().minusDays(2), LocalDate.now().plusDays(5), 0.08, visa);
+        PagoPromocion descuentoPagoFinalizado = new PagoPromocion(LocalDate.now().minusDays(2), LocalDate.now().plusDays(5), 0.08, "VISA");
 
         assertEquals(31280, carrito.calcularMontoCarrito(marcaPromociones, descuentoPagoFinalizado, visa));
     }
@@ -94,10 +94,10 @@ public class CarritoTest {
         carrito.agregarProductoAlCarrito(producto1);
         carrito.agregarProductoAlCarrito(producto2);
 
-        MarcaPromocion descuentoMarca1 = new MarcaPromocion(LocalDate.now().minusDays(2), LocalDate.now().plusDays(5), 0.05, comarca);
+        MarcaPromocion descuentoMarca1 = new MarcaPromocion(LocalDate.now().minusDays(2), LocalDate.now().plusDays(5), 0.05, "Comarca");
         List<MarcaPromocion> marcaPromociones = new ArrayList<>();
         marcaPromociones.add(descuentoMarca1);
-        PagoPromocion descuentoPago1 = new PagoPromocion(LocalDate.now().minusDays(3), LocalDate.now().plusDays(2), 0.08, memeCard);
+        PagoPromocion descuentoPago1 = new PagoPromocion(LocalDate.now().minusDays(3), LocalDate.now().plusDays(2), 0.08, "MemeCard");
 
         assertEquals(31096, carrito.calcularMontoCarrito(marcaPromociones, descuentoPago1, memeCard));
     }
@@ -117,10 +117,10 @@ public class CarritoTest {
         Cliente cliente = new Cliente("Daiana", "Alonso", "42448077", "dalonso@gmail.com");
         cliente.agregarTarjeta(naranja);
 
-        MarcaPromocion descuentoMarca1 = new MarcaPromocion(LocalDate.now().minusDays(2), LocalDate.now().plusDays(7), 0.05, comarca);
+        MarcaPromocion descuentoMarca1 = new MarcaPromocion(LocalDate.now().minusDays(2), LocalDate.now().plusDays(7), 0.05, "Comarca");
         List<MarcaPromocion> marcaPromociones = new ArrayList<>();
         marcaPromociones.add(descuentoMarca1);
-        PagoPromocion descuentoPago1 = new PagoPromocion(LocalDate.now().minusDays(10), LocalDate.now().minusDays(5), 0.08, naranja);
+        PagoPromocion descuentoPago1 = new PagoPromocion(LocalDate.now().minusDays(10), LocalDate.now().minusDays(5), 0.08, "NARANJA");
 
         carrito.agregarProductoAlCarrito(producto1);
         carrito.agregarProductoAlCarrito(producto2);
@@ -182,6 +182,6 @@ public class CarritoTest {
     // descuento de pago con fechas invalidas
     @Test
     public void descuentoConFechaInvalida() {
-        assertThrows(RuntimeException.class, () -> new PagoPromocion(LocalDate.now(), LocalDate.now().minusDays(2), 0.08, new Tarjeta("NARANJA", 1234567)));
+        assertThrows(RuntimeException.class, () -> new PagoPromocion(LocalDate.now(), LocalDate.now().minusDays(2), 0.08, "NARANJA"));
     }
 }

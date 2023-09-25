@@ -3,12 +3,16 @@ package ar.unrn.tp.modelo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@Table(name = "marca")
 public class Marca {
 
     @Id
@@ -20,26 +24,7 @@ public class Marca {
         this.nombre = nombre;
     }
 
-    protected Marca() {
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public boolean esMarca(Marca marca) {
-        return this.nombre.equals(marca.nombre());
-    }
-
-    private String nombre() {
-        return this.nombre;
-    }
-
-    public String getNombre() {
-        return this.nombre;
+    public boolean esMarca(String marca) {
+        return this.nombre.equals(marca);
     }
 }

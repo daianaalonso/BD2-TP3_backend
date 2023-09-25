@@ -2,7 +2,9 @@ package ar.unrn.tp.jpa.servicios;
 
 import ar.unrn.tp.api.PromocionService;
 import ar.unrn.tp.dto.PromocionDTO;
-import ar.unrn.tp.modelo.*;
+import ar.unrn.tp.modelo.MarcaPromocion;
+import ar.unrn.tp.modelo.PagoPromocion;
+import ar.unrn.tp.modelo.Promocion;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -28,7 +30,7 @@ public class PromocionServiceJPA implements PromocionService {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            Promocion p = new PagoPromocion(fechaDesde, fechaHasta, porcentaje, new Tarjeta(marcaTarjeta));
+            Promocion p = new PagoPromocion(fechaDesde, fechaHasta, porcentaje, marcaTarjeta);
             em.persist(p);
             tx.commit();
         } catch (Exception e) {
@@ -46,7 +48,7 @@ public class PromocionServiceJPA implements PromocionService {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            MarcaPromocion p = new MarcaPromocion(fechaDesde, fechaHasta, porcentaje, new Marca(marcaProducto));
+            MarcaPromocion p = new MarcaPromocion(fechaDesde, fechaHasta, porcentaje, marcaProducto);
             em.persist(p);
             tx.commit();
         } catch (Exception e) {
@@ -73,7 +75,7 @@ public class PromocionServiceJPA implements PromocionService {
             promosPago = q.getResultList();
 
             for (PagoPromocion p : promosPago) {
-                promosActivasDTO.add(new PromocionDTO(p.getFechaInicio(), p.getFechaFin(), p.getPorcentaje(), "pago", p.getTarjeta()));
+                promosActivasDTO.add(new PromocionDTO(p.getId(), p.getFechaInicio(), p.getFechaFin(), p.getPorcentaje(), "Pago", p.getTarjeta()));
             }
 
             TypedQuery<MarcaPromocion> qm = em.createQuery("SELECT p FROM MarcaPromocion p WHERE :fecha BETWEEN p.fechaInicio AND p.fechaFin", MarcaPromocion.class);
@@ -81,7 +83,7 @@ public class PromocionServiceJPA implements PromocionService {
             promosMarca = qm.getResultList();
 
             for (MarcaPromocion p : promosMarca) {
-                promosActivasDTO.add(new PromocionDTO(p.getFechaInicio(), p.getFechaFin(), p.getPorcentaje(), "marca"), p.getMarca());
+                promosActivasDTO.add(new PromocionDTO(p.getId(), p.getFechaInicio(), p.getFechaFin(), p.getPorcentaje(), "Marca", p.getMarca()));
             }
 
             tx.commit();

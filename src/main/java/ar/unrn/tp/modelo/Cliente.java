@@ -2,6 +2,7 @@ package ar.unrn.tp.modelo;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.regex.Pattern;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "cliente")
 public class Cliente {
@@ -26,9 +28,6 @@ public class Cliente {
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cliente")
     private List<Tarjeta> tarjetas;
-
-    protected Cliente() {
-    }
 
     public Cliente(String nombre, String apellido, String dni, String email) {
         if (nombre == null || nombre.isEmpty())
@@ -63,35 +62,7 @@ public class Cliente {
     }
 
     public boolean miTarjeta(Tarjeta tarjeta) {
-        return this.tarjetas.stream().anyMatch(t -> t.esTarjeta(tarjeta));
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public List<Tarjeta> getTarjetas() {
-        return this.tarjetas;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+        return this.tarjetas.stream().anyMatch(t -> t.equals(tarjeta));
     }
 
     public boolean suNombreEs(String nombre) {
@@ -109,5 +80,4 @@ public class Cliente {
     public boolean suEmailEs(String email) {
         return this.email.equals(email);
     }
-
 }

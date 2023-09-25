@@ -1,15 +1,21 @@
 package ar.unrn.tp.modelo;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@Table(name = "producto_vendido")
 public class ProductoVendido {
 
     @Id
     @GeneratedValue
     private Long id;
     private String descripcion;
-    @Column(unique = true)
     private String codigo;
     private Double precio;
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -39,23 +45,12 @@ public class ProductoVendido {
         this.marca = marca;
     }
 
-    protected ProductoVendido() {
-    }
-
     private boolean esDatoVacio(String dato) {
         return dato.equals("");
     }
 
     private boolean esDatoNulo(Object dato) {
         return dato == null;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 }
 

@@ -22,19 +22,18 @@ public class Carrito {
         if (p == null) {
             throw new RuntimeException("El producto no puede ser vacio.");
         }
-        this.productos.add(new Producto(p.descripcion(), p.codigo(), p.precio(), p.marca(), p.categoria()));
+        this.productos.add(new Producto(p.getDescripcion(), p.getCodigo(), p.getPrecio(), p.getMarca(), p.getCategoria()));
     }
 
-    //cambiar por lista de marcaPromocion
     public double calcularMontoCarrito(List<MarcaPromocion> marcaPromociones, PagoPromocion pagoPromocion, Tarjeta tarjeta) {
         double total = 0;
         if (tarjeta == null)
             throw new RuntimeException("La tarjeta no puede ser vacia.");
         for (Producto producto : productos) {
-            total += producto.precio();
+            total += producto.getPrecio();
             if (!marcaPromociones.isEmpty()) {
                 double descuento = marcaPromociones.stream()
-                        .mapToDouble(promo -> producto.precio() * promo.aplicarDescuento(producto))
+                        .mapToDouble(promo -> producto.getPrecio() * promo.aplicarDescuento(producto))
                         .sum();
                 total -= descuento;
             }

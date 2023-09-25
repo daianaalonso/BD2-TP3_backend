@@ -1,7 +1,9 @@
 package ar.unrn.tp.modelo;
 
-import jakarta.persistence.*;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -9,19 +11,15 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @DiscriminatorValue("marca")
 public class MarcaPromocion extends Promocion {
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private Marca marca;
+    private String marca;
 
-    public MarcaPromocion(LocalDate fechaInicio, LocalDate fechaFin, Double porcentaje, Marca marca) {
+    public MarcaPromocion(LocalDate fechaInicio, LocalDate fechaFin, Double porcentaje, String marca) {
         super(fechaInicio, fechaFin, porcentaje);
         this.marca = marca;
-    }
-
-    protected MarcaPromocion() {
-
     }
 
     public double aplicarDescuento(Producto producto) {
@@ -37,7 +35,7 @@ public class MarcaPromocion extends Promocion {
         return 0;
     }
 
-    public boolean suMarcaEs(Marca marca) {
-        return this.marca.esMarca(marca);
+    public boolean esMarca(String marca){
+        return this.marca.equals(marca);
     }
 }

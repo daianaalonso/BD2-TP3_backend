@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 public class PromocionDTO {
+    private Long id;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
     private Double porcentaje;

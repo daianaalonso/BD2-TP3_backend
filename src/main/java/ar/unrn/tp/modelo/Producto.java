@@ -2,11 +2,13 @@ package ar.unrn.tp.modelo;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "producto")
 public class Producto {
 
@@ -69,9 +71,6 @@ public class Producto {
         this.marca = marca;
     }
 
-    protected Producto() {
-    }
-
     private boolean esDatoVacio(String dato) {
         return dato.equals("");
     }
@@ -80,33 +79,6 @@ public class Producto {
         return dato == null;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public void setPrecio(Double precio) {
-        this.precio = precio;
-    }
-
-    public void setMarca(Marca marca) {
-        this.marca = marca;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
 
     public boolean suDescripcionEs(String descripcion) {
         return this.descripcion.equals(descripcion);
@@ -116,35 +88,15 @@ public class Producto {
         return this.codigo.equals(codigo);
     }
 
-    public boolean suPrecioEs(Double precio){
+    public boolean suPrecioEs(Double precio) {
         return this.precio.equals(precio);
     }
 
-    public boolean suMarcaEs(Marca marca) {
+    public boolean suMarcaEs(String marca) {
         return this.marca.esMarca(marca);
     }
 
-    public boolean suCategoriaEs(Categoria categoria){
-        return this.categoria.esCategoria(categoria);
-    }
-
-    public String descripcion() {
-        return this.descripcion;
-    }
-
-    public String codigo() {
-        return this.codigo;
-    }
-
-    public Double precio() {
-        return this.precio;
-    }
-
-    public Marca marca() {
-        return this.marca;
-    }
-
-    public Categoria categoria() {
-        return this.categoria;
+    public boolean suCategoriaEs(Categoria categoria) {
+        return this.categoria.equals(categoria);
     }
 }

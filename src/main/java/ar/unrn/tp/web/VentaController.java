@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/venta")
@@ -22,8 +24,11 @@ public class VentaController {
     }
 
     @PostMapping
-    public ResponseEntity<String> crearVenta(@RequestParam Long idCliente, List<Long> productos, Long idTarjeta) {
+    public ResponseEntity<Map<String, String>> crearVenta(@RequestParam Long idCliente, @RequestBody List<Long> productos, Long idTarjeta) {
         ventaService.realizarVenta(idCliente, productos, idTarjeta);
-        return new ResponseEntity<>("Venta registrada correctamente.", HttpStatus.OK);
+        Map<String, String> response = new HashMap<>();
+        response.put("result", "Venta registrada correctamente.");
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

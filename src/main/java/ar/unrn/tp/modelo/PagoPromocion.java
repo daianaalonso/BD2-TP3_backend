@@ -1,10 +1,9 @@
 package ar.unrn.tp.modelo;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -12,19 +11,15 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @DiscriminatorValue("pago")
 public class PagoPromocion extends Promocion {
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    private Tarjeta tarjeta;
+    private String tarjeta;
 
-
-    public PagoPromocion(LocalDate fechaInicio, LocalDate fechaFin, Double porcentaje, Tarjeta tarjeta) {
+    public PagoPromocion(LocalDate fechaInicio, LocalDate fechaFin, Double porcentaje, String tarjeta) {
         super(fechaInicio, fechaFin, porcentaje);
         this.tarjeta = tarjeta;
-    }
-
-    protected PagoPromocion() {
     }
 
     public double aplicarDescuento(double total, Tarjeta tarjeta) {
@@ -40,6 +35,6 @@ public class PagoPromocion extends Promocion {
     }
 
     public boolean suTarjetaEs(Tarjeta tarjeta) {
-        return this.tarjeta.esTarjeta(tarjeta);
+        return tarjeta.equals(this.tarjeta);
     }
 }

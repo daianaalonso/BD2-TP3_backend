@@ -30,13 +30,13 @@ public class VentaServiceJPA implements VentaService {
 
             Cliente cliente = em.find(Cliente.class, idCliente);
             if (cliente == null)
-                throw new RuntimeException("El cliente no existe.");
+                throw new RuntimeException("Error. El cliente no existe.");
 
             Tarjeta tarjeta = em.find(Tarjeta.class, idTarjeta);
             if (tarjeta == null)
-                throw new RuntimeException("La tarjeta no existe.");
+                throw new RuntimeException("Error. La tarjeta no existe.");
             if (!cliente.miTarjeta(tarjeta))
-                throw new RuntimeException("La tarjeta no es del cliente.");
+                throw new RuntimeException("Error. La tarjeta no es del cliente.");
 
             TypedQuery<Producto> q = em.createQuery("SELECT p FROM Producto p WHERE p.id IN :productos", Producto.class);
             q.setParameter("productos", productos);
@@ -59,7 +59,7 @@ public class VentaServiceJPA implements VentaService {
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
-            throw new RuntimeException(e);
+            throw e;
         } finally {
             if (em != null && em.isOpen())
                 em.close();
@@ -75,7 +75,7 @@ public class VentaServiceJPA implements VentaService {
             tx.begin();
             Tarjeta tarjeta = em.find(Tarjeta.class, idTarjeta);
             if (tarjeta == null)
-                throw new RuntimeException("La tarjeta no existe.");
+                throw new RuntimeException("Error. La tarjeta no existe.");
 
             TypedQuery<Producto> q = em.createQuery("SELECT p FROM Producto p WHERE p.id IN :productos", Producto.class);
             q.setParameter("productos", productos);
@@ -97,7 +97,7 @@ public class VentaServiceJPA implements VentaService {
             return carrito.calcularMontoCarrito(marcaPromociones, pagoPromocion, tarjeta);
         } catch (Exception e) {
             tx.rollback();
-            throw new RuntimeException(e);
+            throw e;
         } finally {
             if (em != null && em.isOpen())
                 em.close();

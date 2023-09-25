@@ -36,7 +36,7 @@ public class Venta {
 
     private void agregarProductos(List<Producto> productosVendidos) {
         productosVendidos.stream()
-                .map(p -> new ProductoVendido(p.descripcion(), p.codigo(), p.precio(), p.marca(), p.categoria()))
+                .map(p -> new ProductoVendido(p.getDescripcion(), p.getCodigo(), p.getPrecio(), p.getMarca(), p.getCategoria()))
                 .forEach(this.productosVendidos::add);
     }
 
@@ -48,7 +48,7 @@ public class Venta {
         return id;
     }
 
-    public boolean montoEs(Double montoTotal){
+    public boolean montoEs(Double montoTotal) {
         return this.montoTotal.equals(montoTotal);
     }
 }
